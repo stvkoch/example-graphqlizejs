@@ -1,10 +1,10 @@
-import faker from "faker";
-import times from "lodash.times";
-import random from "lodash.random";
+import faker from 'faker'
+import times from 'lodash.times'
+import random from 'lodash.random'
 
-const country = require("../data/country.json");
-const countryCallCode = require("../data/country-by-calling-code.json");
-const countryCurrencyCode = require("../data/country-by-currency-code.json");
+const country = require('../data/country.json')
+const countryCallCode = require('../data/country-by-calling-code.json')
+const countryCurrencyCode = require('../data/country-by-currency-code.json')
 
 const imagesUrls = [
   faker.image.abstract(),
@@ -20,10 +20,10 @@ const imagesUrls = [
   faker.image.sports(),
   faker.image.technics(),
   faker.image.transport()
-];
+]
 const getImage = () => {
-  return imagesUrls[random(0, imagesUrls.length - 1)];
-};
+  return imagesUrls[random(0, imagesUrls.length - 1)]
+}
 
 /**
  * return array with size with element could be random values between start and end
@@ -32,19 +32,19 @@ const getImage = () => {
  * @param {*} end
  */
 function rangeUniqRandom(size, start, end) {
-  var arr = [];
+  var arr = []
   while (arr.length < size) {
-    var r = random(start, end);
-    if (arr.indexOf(r) === -1) arr.push(r);
+    var r = random(start, end)
+    if (arr.indexOf(r) === -1) arr.push(r)
   }
-  return arr;
+  return arr
 }
 
 export function generateFakes(db) {
   // return;
 
   const p = db.country
-    .count("*")
+    .count('*')
     .then(_ =>
       db.country.bulkCreate(
         country
@@ -62,12 +62,37 @@ export function generateFakes(db) {
       )
     )
     .then(_ =>
+      db.user.create({
+        name: 'Fulano Siclano'
+      })
+    )
+    .then(_ =>
+      db.user.create({
+        name: 'Steven Koch'
+      })
+    )
+
+    .then(_ =>
+      db.credential.create({
+        userId: 1,
+        username: 'fulano',
+        password: 'siclano'
+      })
+    )
+    .then(_ =>
+      db.credential.create({
+        userId: 2,
+        username: 'userfullname',
+        password: 'xpto123'
+      })
+    )
+    .then(_ =>
       db.category.bulkCreate(
         rangeUniqRandom(10, 1, 10).map(randomPosition => ({
           name: faker.commerce.department(),
           description: faker.lorem.sentence(),
           position: randomPosition,
-          countryId: "PT"
+          countryId: 'PT'
         }))
       )
     )
@@ -77,7 +102,7 @@ export function generateFakes(db) {
           name: faker.commerce.department(),
           description: faker.lorem.sentence(),
           position: randomPosition,
-          countryId: "ID"
+          countryId: 'ID'
         }))
       )
     )
@@ -87,20 +112,10 @@ export function generateFakes(db) {
           name: faker.commerce.productName(),
           description: faker.commerce.productMaterial(),
           price: faker.commerce.price(),
-          countryId: "PT",
-          categoryId: random(1, 10)
+          countryId: 'PT',
+          categoryId: random(1, 10),
+          userId: random(1, 2)
         }))
       )
     )
-    .then(_ =>
-      db.service.bulkCreate(
-        times(50, () => ({
-          name: faker.commerce.productName(),
-          description: faker.commerce.productMaterial(),
-          price: faker.commerce.price(),
-          countryId: "ID",
-          categoryId: random(11, 20)
-        }))
-      )
-    );
 }

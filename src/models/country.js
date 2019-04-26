@@ -1,6 +1,6 @@
 export default (sequelize, DataTypes) => {
   const Country = sequelize.define(
-    "country",
+    'country',
     {
       id: {
         type: DataTypes.STRING(2),
@@ -25,12 +25,13 @@ export default (sequelize, DataTypes) => {
       gqInputCreateWithPrimaryKeys: false,
       gqInputUpdateWithPrimaryKeys: false
     }
-  );
+  )
 
   Country.associate = models => {
-    Country.hasMany(models.service);
-    Country.hasMany(models.category);
-  };
+    Country.hasMany(models.service)
+    Country.hasMany(models.category)
+    Country.hasMany(models.user)
+  }
 
-  return Country;
-};
+  return Country
+}
