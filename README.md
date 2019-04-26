@@ -2,6 +2,12 @@
 
 https://github.com/stvkoch/graphqlizejs
 
+Here you will find server configurated with:
+
+- jwt authentication
+- middlewares resolvers in service model
+- subcriptions when something change in service model
+
 It's the same found:
 
 - https://graphqlize.herokuapp.com/graphql
