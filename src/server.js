@@ -1,16 +1,14 @@
 import express from 'express'
 import { ApolloServer, gql, AuthenticationError } from 'apollo-server-express'
 import cors from 'cors'
-// import hasha from "hasha";
-var jwt = require('jsonwebtoken')
+import http from 'http'
+import https from 'https'
 
 import { generateFakes } from './fakes'
 import db from './models'
 import resolvers from './resolvers'
 import schema from './schema'
 import transformTokenUser from './middleware/transform-token-user'
-import http from 'http'
-import https from 'https'
 
 const port = process.env.PORT || 5000
 

@@ -1,9 +1,11 @@
 import { resolvers } from 'graphqlizejs'
 import jwt from 'jsonwebtoken'
+import { AuthenticationError, PubSub } from 'apollo-server-express'
+// import hasha from "hasha";
+
 import db from '../models'
 import JWT_SECRET_KEY from '../config/jwt'
 import requireUser from '../middleware/require-user'
-import { AuthenticationError, PubSub } from 'apollo-server-express'
 
 const login = sequelize => async (root, args) => {
   const credential = await sequelize.models.credential.findOne({
@@ -27,7 +29,7 @@ const login = sequelize => async (root, args) => {
   }
 }
 
-export default resolvers(db.sequelize, null, sequelize => ({
+export default resolvers(db.sequelize, new PubSub(), sequelize => ({
   query: {
     me: requireUser((parent, args, context) => {
       return context.user
