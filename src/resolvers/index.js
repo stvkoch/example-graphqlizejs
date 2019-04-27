@@ -68,4 +68,3 @@ export default resolvers(db.sequelize, new PubSub(), sequelize => ({
   }
 }))
 
-//   export default resolvers;
