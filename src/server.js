@@ -26,7 +26,7 @@ apollo.applyMiddleware({ app })
 app.use(express.static('app/public'))
 app.get('/schema', (_, res) =>
   res.send(
-    `<div><a href="/graphql">Graphqli</a></div><pre>${schemaGenerated}</pre>`
+    `<div><a href="/graphql">Graphqli</a></div><pre>${schema}</pre>`
   )
 )
 
