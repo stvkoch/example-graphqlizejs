@@ -25,7 +25,8 @@ yarn install
 
 ```
 cd example-graphqlizejs
-yarn start
+npm i
+npm start
 ```
 
 Then visit http://localhost:5000/graphql and start to explore
